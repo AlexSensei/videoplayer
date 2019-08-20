@@ -1,5 +1,5 @@
 import React from 'react';
-import { Audio, Video } from 'expo';
+import { Audio, Video } from 'expo-av';
 import {
   View,
   Dimensions,
@@ -8,7 +8,8 @@ import {
   Animated,
   Text,
   Slider,
-  NetInfo
+  NetInfo,
+  Platform
 } from 'react-native';
 import PropTypes from 'prop-types';
 import reactMixin from 'react-mixin';
@@ -194,7 +195,8 @@ export default class VideoPlayer extends React.Component {
         playsInSilentModeIOS: true,
         shouldDuckAndroid: true,
         interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-        playThroughEarpieceAndroid: true,
+        playThroughEarpieceAndroid: Platform.OS === 'ios',
+        staysActiveInBackground: false
       });
     } catch (e) {
       this.props.errorCallback({
